@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct NewToDoView: View {
+    
+    @Binding var toDoItems: [ToDoItem]
+    
     @State var title: String
     @State var isImportant: Bool
+    
+    @Binding var showNewTask : Bool
     
     var body: some View {
         VStack {
@@ -25,7 +30,9 @@ struct NewToDoView: View {
                 Text("Is it important?")
             }
             Button(action: {
-              
+                self.addTask(title: self.title, isImportant: self.isImportant)
+                
+                self.showNewTask = false
             }) {
                 Text("Add")
             }
@@ -33,10 +40,15 @@ struct NewToDoView: View {
         }
         .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
     }
+    private func addTask(title: String, isImportant: Bool = false) {
+            
+            let task = ToDoItem(title: title, isImportant: isImportant)
+            toDoItems.append(task)
+        }
 }
 
-struct NewToDo_Previews: PreviewProvider {
+struct NewToDoView_Previews: PreviewProvider {
     static var previews: some View {
-        NewToDoView(title: "", isImportant: false)
+        NewToDoView(toDoItems: .constant([]), title: "", isImportant: false, showNewTask: .constant(true))
     }
 }

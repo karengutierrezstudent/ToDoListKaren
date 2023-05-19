@@ -7,9 +7,12 @@
 
 import Foundation
 
-class toDo {
-    var title = "" ;
-    var isImportant = true ;
+class ToDoItem: Identifiable {
+    
+    var title : String ;
+    var isImportant : Bool ;
+    var id = UUID()
+    
     
     init(title: String, isImportant: Bool = false) {
             self.title = title
